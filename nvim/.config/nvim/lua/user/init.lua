@@ -4,6 +4,8 @@
 -- You can think of a Lua "table" as a dictionary like data structure the
 -- normal format is "key = value". These also handle array like data structures
 -- where a value with no key simply has an implicit numeric key
+
+
 local config = {
 
   -- Configure AstroNvim updates
@@ -26,7 +28,7 @@ local config = {
   },
 
   -- Set colorscheme to use
-  colorscheme = "evening",
+  colorscheme = "oceanic_material_p",
 
   -- Add highlight groups in any theme
   highlights = {
@@ -57,12 +59,18 @@ local config = {
       status_diagnostics_enabled = true, -- enable diagnostics in statusline
       icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
       ui_notifications_enabled = true, -- disable notifications when toggling UI elements
+      oceanic_material_allow_italic = 1,
+      oceanic_material_background = "darker",
+      gruvbox_material_enable_bold = 1,
+      gruvbox_material_enable_italic = 1,
+      gruvbox_material_background = "hard",
+      
     },
   },
   -- If you need more control, you can use the function()...end notation
   -- options = function(local_vim)
   --   local_vim.opt.relativenumber = true
-  --   local_vim.g.mapleader = " "
+
   --   local_vim.opt.whichwrap = vim.opt.whichwrap - { 'b', 's' } -- removing option from list
   --   local_vim.opt.shortmess = vim.opt.shortmess + { I = true } -- add to option list
   --
@@ -217,6 +225,9 @@ local config = {
   -- Configure plugins
   plugins = {
     init = {
+            "glepnir/oceanic-material",
+            "sainnhe/gruvbox-material",
+            "mhartington/oceanic-next",
       -- You can disable default plugins as follows:
       -- ["goolord/alpha-nvim"] = { disable = true },
 
@@ -334,3 +345,4 @@ local config = {
 }
 
 return config
+

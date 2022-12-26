@@ -59,10 +59,10 @@ local config = {
       status_diagnostics_enabled = true, -- enable diagnostics in statusline
       icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
       ui_notifications_enabled = true, -- disable notifications when toggling UI elements
-      oceanic_material_allow_italic = 1,
+      oceanic_material_allow_italic = 0,
       oceanic_material_background = "darker",
       gruvbox_material_enable_bold = 1,
-      gruvbox_material_enable_italic = 1,
+      gruvbox_material_enable_italic = 0,
       gruvbox_material_background = "hard",
       
     },

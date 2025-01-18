@@ -36,13 +36,34 @@ return {
       vim.g.maplocalleader = ","
 
       vim.keymap.set("n", "<localleader>r", function()
-        vim.cmd("w") -- Save the file
+        vim.cmd("w") -- Save the current file
+
+        -- Find the main file (default to main.tex)
+        local main_file = vim.fn.findfile("main.tex", ".;")
+        if main_file == "" then
+          print("Main file not found (main.tex)")
+          return
+        end
+
+        -- Get the line number in the current file
+        local current_line = vim.fn.line(".")
+
+        -- Get the file name of the current buffer
+        local current_file = vim.fn.expand("%")
+
+        -- Resolve the main file path without the extension
+        local main_file_root = vim.fn.fnamemodify(main_file, ":r")
+
+        -- Build the Skim command
         local cmd = string.format(
-          "/Applications/Skim.app/Contents/SharedSupport/displayline %d %s.pdf",
-          vim.fn.line("."),
-          vim.fn.expand("%:r")
+          "/Applications/Skim.app/Contents/SharedSupport/displayline %d %s.pdf %s",
+          current_line,
+          main_file_root,
+          current_file
         )
-        vim.fn.system(cmd) -- Run the Skim command silently
+
+        -- Run the Skim command silently
+        vim.fn.system(cmd)
       end, { silent = true, desc = "View PDF at current line" })
 
       -- -- Enable conceal in general

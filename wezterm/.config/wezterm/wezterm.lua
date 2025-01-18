@@ -10,6 +10,14 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.keys = {
+	{
+		key = "Tab",
+		mods = "CTRL",
+		action = wezterm.action.ActivateLastTab,
+	},
+}
+
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:

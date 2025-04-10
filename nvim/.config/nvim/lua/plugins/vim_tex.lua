@@ -64,7 +64,30 @@ return {
 
         -- Run the Skim command silently
         vim.fn.system(cmd)
-      end, { silent = true, desc = "View PDF at current line" })
+
+        -- Adjust Skim window size and position using AppleScript
+        local applescript = [[
+        tell application "System Events"
+            -- Get the screen resolution from system_profiler
+            set screenResolution to do shell script "system_profiler SPDisplaysDataType | awk \'/Resolution/ {print}\' | head -1"
+
+            -- Split the resolution string into width and height
+            set screenWidth to word 2 of screenResolution as integer
+            set screenHeight to word 4 of screenResolution as integer
+        end tell
+
+        tell application "Skim"
+            activate
+            -- Move and resize Skim window to the right half of the screen
+            set bounds of front window to {screenWidth / 2, 0, screenWidth, screenHeight}
+            -- Ensure Skim is not in full-screen mode
+            set mode of front window to normal
+        end tell
+    ]]
+
+        -- Run the AppleScript to adjust Skim's window position and size
+        vim.fn.system("osascript -e '" .. applescript .. "'")
+      end, { silent = true, desc = "View PDF at current line with adjusted height" })
 
       -- -- Enable conceal in general
       -- vim.o.conceallevel = 2 -- Set conceal level (1 = hide only, 2 = replace with symbols)
@@ -86,7 +109,7 @@ return {
       vim.g.vimtex_fold_enabled = 1
       vim.g.vimtex_fold_types = {
         envs = {
-          whitelist = { "enumerate", "figure" },
+          whitelist = { "enumerate", "figure", "table" },
         },
         sections = {
           enabled = 0, -- Disable folding for sections
@@ -94,56 +117,4 @@ return {
       }
     end,
   },
-  -- change some telescope options and a keymap to browse plugin files
-  -- {
-  --   "nvim-telescope/telescope.nvim",
-  --   keys = {
-  --   -- add a keymap to browse plugin files
-  --   -- stylua: ignore
-  --   {
-  --     "<leader>fp",
-  --     function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
-  --     desc = "Find Plugin File",
-  --   },
-  --   },
-  --   -- change some options
-  --   opts = {
-  --     defaults = {
-  --       layout_strategy = "horizontal",
-  --       -- layout_config = { prompt_position = "top" },
-  --       -- sorting_strategy = "ascending",
-  --       winblend = 0,
-  --     },
-  --   },
-  -- },
-
-  -- add telescope-fzf-native
-  -- {
-  --   "telescope.nvim",
-  --   dependencies = {
-  --     "nvim-telescope/telescope-file-browser.nvim",
-  --     keys = {
-  --       "<leader>sB",
-  --     },
-  --     config = function()
-  --       require("telescope").load_extension("file-browser")
-  --     end,
-  --   },
-  -- },
-
-  -- add telescope-fzf-native
-  -- {
-  --   "telescope.nvim",
-  --   dependencies = {
-  --     "nvim-telescope/telescope-ui-select.nvim",
-  --     config = function()
-  --       require("telescope").load_extension("ui-select")
-  --     end,
-  --   },
-  -- },
-
-  -- {
-  --   "nvim-telescope/telescope-ui-select.nvim",
-  --   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-  -- },
 }

@@ -3,6 +3,9 @@ return {
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
   -- then: setup supertab in cmp
   {
+    dir = "/Users/tilman/Documents/github/flow_graph",
+  },
+  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-emoji",

@@ -75,8 +75,8 @@ function M.setup()
       vim.keymap.set('n', '<leader>sd', function()
         vim.diagnostic.setqflist(); vim.cmd('copen')
       end, opts)
-      vim.keymap.set('n', '<leader>ss', vim.lsp.buf.document_symbols, opts)
-      vim.keymap.set('n', '<leader>sS', vim.lsp.buf.workspace_symbols, opts)
+      vim.keymap.set('n', '<leader>ss', vim.lsp.buf.document_symbol, opts)
+      vim.keymap.set('n', '<leader>sS', vim.lsp.buf.workspace_symbol, opts)
     end,
   })
 end

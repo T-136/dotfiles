@@ -68,9 +68,15 @@ function M.setup()
       vim.keymap.set('n', 'grr', vim.lsp.buf.references, opts)
       vim.keymap.set('n', 'gri', vim.lsp.buf.implementation, opts)
 
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+      vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+      vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, opts)
+      vim.keymap.set('n', '<leader>sd', function()
+        vim.diagnostic.setqflist(); vim.cmd('copen')
+      end, opts)
+      vim.keymap.set('n', '<leader>ss', vim.lsp.buf.document_symbols, opts)
+      vim.keymap.set('n', '<leader>sS', vim.lsp.buf.workspace_symbols, opts)
     end,
   })
 end

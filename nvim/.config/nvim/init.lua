@@ -43,6 +43,8 @@ vim.keymap.set('n', '<leader>sg', function() require('fff').live_grep() end, { d
 vim.keymap.set('n', '<leader>sw', function() require('fff').live_grep_under_cursor() end,
   { desc = 'Grep Under Cursor' })
 
+vim.keymap.set('n', '<leader>e', function() MiniFiles.open() end, { desc = 'File Explorer' })
+
 -- ========================================================================== --
 -- 4. GIT KEYMAPS
 -- ========================================================================== --
@@ -125,3 +127,4 @@ vim.api.nvim_create_autocmd("FileType", {
 require('lsp').setup()
 require('treesitter').setup()
 require('formatting').setup()
+require('files').setup()

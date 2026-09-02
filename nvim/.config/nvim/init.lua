@@ -8,10 +8,11 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.mousescroll = "ver:1,hor:2"
+vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 
 -- ========================================================================== --
@@ -45,6 +46,8 @@ vim.keymap.set('n', '<leader>sw', function() require('fff').live_grep_under_curs
 
 vim.keymap.set('n', '<leader>e', function() MiniFiles.open() end, { desc = 'File Explorer' })
 
+vim.keymap.set('n', '<leader>nh', vim.cmd.nohlsearch, { desc = 'Clear Search Highlight' })
+
 -- ========================================================================== --
 -- 4. GIT KEYMAPS
 -- ========================================================================== --
@@ -71,7 +74,9 @@ end, { desc = 'Lazygit' })
 
 vim.keymap.set('n', '<leader>gb', function()
   local file = vim.fn.expand('%')
-  if file == '' then print('No file'); return end
+  if file == '' then
+    print('No file'); return
+  end
   vim.cmd('tabnew')
   local output = vim.fn.system('git blame -L 1,+' .. vim.fn.line('$') .. ' -- ' .. file)
   vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(output, '\n'))

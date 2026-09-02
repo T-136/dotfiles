@@ -26,6 +26,12 @@ function M.setup()
   -- Enable servers
   vim.lsp.enable('lua_ls')
   vim.lsp.enable('pyright')
+  vim.lsp.enable('zls')
+  vim.lsp.config('rust_analyzer', {
+    cmd = { vim.fn.expand('~/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rust-analyzer') },
+  })
+  vim.lsp.enable('rust_analyzer')
+  vim.lsp.enable('vtsls')
 
   vim.cmd.packadd('blink.cmp')
 
@@ -64,9 +70,10 @@ function M.setup()
     callback = function(ev)
       local opts = { buffer = ev.buf }
 
-      vim.keymap.set('n', 'grd', vim.lsp.buf.definition, opts)
-      vim.keymap.set('n', 'grr', vim.lsp.buf.references, opts)
-      vim.keymap.set('n', 'gri', vim.lsp.buf.implementation, opts)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+      vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
 
       vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)

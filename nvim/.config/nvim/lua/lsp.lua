@@ -38,7 +38,17 @@ function M.setup()
   -- Blink
   require('blink.cmp').setup({
     keymap = {
-      preset = 'default',
+      preset = 'enter',
+      ['<CR>'] = {
+        function(cmp)
+          cmp.accept()
+          vim.schedule(function() vim.api.nvim_feedkeys('\n', 'n', false) end)
+        end,
+        'fallback',
+      },
+      ['<Tab>'] = { 'select_next', 'fallback' },
+      ['<S-Tab>'] = { 'select_prev', 'fallback' },
+      ['<C-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
     },
     sources = {
       default = {
@@ -52,6 +62,13 @@ function M.setup()
       trigger = {
         show_on_keyword = true,
         show_on_trigger_character = true,
+      },
+
+      list = {
+        selection = {
+          preselect = false,
+          auto_insert = true,
+        },
       },
 
       menu = {
